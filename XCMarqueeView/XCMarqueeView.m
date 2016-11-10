@@ -119,13 +119,23 @@
 }
 
 - (void)resume{
+    [self resumeAndStart:NO];
+}
+
+- (void)resumeAndStart{
+    [self resumeAndStart:YES];
+}
+
+- (void)resumeAndStart:(BOOL)start{
     if (_raceTimer) {
         [_raceTimer invalidate];
         _raceTimer = nil;
     }
     _raceLabelOne.frame = CGRectMake(0, 0, _raceLabelOne.bounds.size.width, self.bounds.size.height);
     _raceLabelTwo.frame = CGRectMake(_raceLabelOne.frame.origin.x + _raceLabelOne.bounds.size.width, _raceLabelOne.frame.origin.y, _raceLabelOne.bounds.size.width, _raceLabelOne.bounds.size.height);
-    [self startRaceAnimate];
+    if (start) {
+        [self startRaceAnimate];
+    }
 }
 
 - (CGFloat)getStringWidth:(NSString *)string{
